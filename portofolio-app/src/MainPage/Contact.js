@@ -2,32 +2,72 @@ import { useState } from 'react';
 import '../App.css';
 
 function Contact() {
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [isButtonDisabled, setButtonDisabled] = useState(false);
+    const [buttonText, setButtonText] = useState('Submit');
+
+    const handleSubmit = (e, email, message) => {
+        e.preventDefault();
+
+        // Disable the button and change the text
+        setButtonDisabled(true);
+
+        //Create the POST request which will be sent to the backend
+        const req = new XMLHttpRequest();
+        req.open("POST", "http://localhost:3002/email");
+        req.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+        const body = JSON.stringify({
+            email: email,
+            message: message
+        });
+
+        req.onload = () => {
+            if (req.readyState === 4 && req.status === 201) {
+                console.log(JSON.parse(req.responseText));
+            } else {
+                console.log(`Error: ${req.status}`);
+            }
+        };
+        req.send(body);
+
+        //Reflect in the UI that an email has been sent
+        setButtonText('Email sent!')
+
+        // Simulate a delay of 2 seconds
+        setTimeout(() => {
+            // Re-enable the button and change the text back to 'Submit'
+            setButtonDisabled(false);
+            setButtonText('Submit');
+        }, 2000);
+    };
 
     return (
         <div>
-            <section id="contact"/>
-            <div class=" bg-blue-950 min-h-screen font-bold text-amber-600">
-                <div class="text-center">
-                    <text class="pt-16 text-5xl inline-block"> Contact Me! </text>
+            <section id="contact" />
+            <div className=" bg-blue-950 min-h-screen font-bold text-amber-600">
+                <div className="text-center">
+                    <text className="pt-16 text-5xl inline-block"> Contact Me! </text>
                 </div>
-                <form class="flex flex-col w-3/5 mx-auto m-8 my-20">
-                    <text class="text-xl"> Your email: </text>
-                    <input class="h-8 my-4 pl-2 rounded-md"
-                        content={name} 
-                        onChange={(e) => {setName(e.target.value)}}
+                <form className="flex flex-col w-3/5 mx-auto m-8 my-20">
+                    <text className="text-xl"> Your email: </text>
+                    <input className="h-8 my-4 pl-2 rounded-md"
+                        content={email}
+                        onChange={(e) => { setEmail(e.target.value) }}
                         placeholder='Your email here'
                     />
-                    <text class="text-xl"> Your message: </text>
-                    <textarea class="my-4 h-64 rounded-md pl-2 pt-1"
+                    <text className="text-xl"> Your message: </text>
+                    <textarea className="my-4 h-64 rounded-md pl-2 pt-1"
                         content={message}
-                        onChange={(e) => {setMessage(e.target.value)}}
+                        onChange={(e) => { setMessage(e.target.value) }}
                         placeholder='Your message here'
-                        onKeyDown={(event) => {handleKeyDown(event)}}
+                        onKeyDown={(event) => { handleKeyDown(event) }}
                     />
-                    <button class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded-full">
-                        Submit
+                    <button className={`bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded-full ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={(e) => handleSubmit(e, email, message)}
+                        disabled={isButtonDisabled}>
+                        {buttonText}
                     </button>
                 </form>
             </div>
@@ -46,4 +86,4 @@ function handleKeyDown(event) {
     }
 }
 
-export default Contact;
+export default Contact

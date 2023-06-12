@@ -6,11 +6,11 @@ import MainPage from './MainPage/MainPage';
 function App() {
   return (
     <div>
-       <header class="fixed w-screen"> 
-        <NavigationBar/>
+      <header className="fixed w-screen">
+        <NavigationBar />
       </header>
       <Routes>
-        <Route index element={<MainPage/>}/>
+        <Route index element={<MainPage />} />
       </Routes>
     </div>
   );
