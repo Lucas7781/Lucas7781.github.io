@@ -4,8 +4,8 @@ function AboutMe() {
   return (
     <div>
       <section id="aboutme" />
-      <div className="bg-gradient-to-b from-blue-900 to-blue-950 min-h-screen flex flex-col font-bold text-amber-600">
-        <p className="pt-16 text-5xl pb-20 text-center"> About Me </p>
+      <div className="bg-gradient-to-b pb-20 from-blue-900 to-blue-950 min-h-fit flex flex-col">
+        <p className="pt-16 text-5xl pb-20 text-center font-bold text-amber-600"> About Me </p>
         <div className="w-3/4 px-5 shadow-lg text-gray-100 text-sm subpixel-antialiased 
                       bg-slate-900 pb-6 pt-4 rounded-lg leading-normal overflow-hidden mx-auto">
           <div className="top mb-2 flex">

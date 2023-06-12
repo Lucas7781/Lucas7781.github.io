@@ -4,8 +4,13 @@ import './App.css';
 function NavigationBar() {
     return (
         <div>
-            <div className=" bg-slate-900 min-h-fit flex flex-row pr-6 align-middle justify-end text-xl font-bold text-center text-slate-300">
-                <div>
+            <div className=" bg-slate-900 min-h-fit flex pr-6 align-middle text-slate-300">
+                <button className="border-8 border-transparent hover:text-amber-600 font-serif text-2xl pl-4">
+                        <Scrollchor to="#intro" >
+                            VLS
+                        </Scrollchor>
+                </button>
+                <div className='justify-end text-xl font-bold flex absolute right-8'>
                     <button className="border-8 border-transparent hover:text-amber-600">
                         <Scrollchor to="#intro" >
                             Home
@@ -16,7 +21,11 @@ function NavigationBar() {
                             About Me
                         </Scrollchor>
                     </button>
-                    <button className="border-8 border-transparent hover:text-amber-600">Projects</button>
+                    <button className="border-8 border-transparent hover:text-amber-600">
+                        <Scrollchor to="#projects">
+                            Projects
+                        </Scrollchor>
+                    </button>
                     <button className="border-8 border-transparent hover:text-amber-600">
                         <Scrollchor to="#contact">
                             Contact
