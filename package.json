@@ -3,6 +3,7 @@
     "concurrently": "^8.1.0"
   },
   "scripts": {
-    "start": "concurrently -n \"Backend,Frontend\" -c \"auto\" \"npm start --prefix backend\" \"npm start --prefix portofolio-app\""
+    "start": "npm start --prefix backend",
+    "startlocal": "concurrently -n \"Backend,Frontend\" -c \"auto\" \"npm start --prefix backend\" \"npm start --prefix portofolio-app\""
   }
 }
