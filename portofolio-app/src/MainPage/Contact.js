@@ -48,16 +48,16 @@ function Contact() {
             <section id="contact" />
             <div className="bg-blue-950 font-bold text-amber-600 pb-24">
                 <div className="text-center">
-                    <text className="pt-16 text-5xl inline-block"> Contact Me! </text>
+                    <p className="pt-16 text-5xl inline-block"> Contact Me! </p>
                 </div>
                 <form className="flex flex-col w-3/5 mx-auto m-8 my-20">
-                    <text className="text-xl"> Your email: </text>
+                    <p className="text-xl"> Your email: </p>
                     <input className="h-8 my-4 pl-2 rounded-md"
                         content={email}
                         onChange={(e) => { setEmail(e.target.value) }}
                         placeholder='Your email here'
                     />
-                    <text className="text-xl"> Your message: </text>
+                    <p className="text-xl"> Your message: </p>
                     <textarea className="my-4 h-64 rounded-md pl-2 pt-1"
                         content={message}
                         onChange={(e) => { setMessage(e.target.value) }}
