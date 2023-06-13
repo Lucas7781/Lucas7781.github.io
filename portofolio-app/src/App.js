@@ -5,7 +5,7 @@ import MainPage from './MainPage/MainPage';
 
 function App() {
   return (
-    <div className='overscroll-none'>
+    <div>
       <header className="fixed w-screen">
         <NavigationBar />
       </header>
