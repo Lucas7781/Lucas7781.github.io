@@ -13,7 +13,7 @@ function Projects() {
             <section id="projects" />
             <p className="pt-16 text-5xl pb-20 text-center font-bold text-amber-600"> My Projects </p>
             <div className='w-3/4 flex flex-row justify-around mx-auto'>
-                <div className="flex flex-col sm:w-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className="flex flex-col sm:w-1/3 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 shadow-xl">
                     <img className="rounded-t-lg" src="portofolio-snip.png" alt="Portofolio Example" />
                     <div className="p-5 h-full flex flex-col justify-between">
                         <div>
@@ -28,7 +28,7 @@ function Projects() {
                         </button>
                     </div>
                 </div>
-                <div className="flex flex-col sm:w-1/3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className="flex flex-col sm:w-1/3 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 shadow-xl">
                     <img className="rounded-t-lg" src="js-bot.png" alt="Portofolio Example" />
                     <div className="p-5 h-full flex flex-col justify-between">
                         <div>

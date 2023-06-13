@@ -10,6 +10,18 @@ function Contact() {
     const handleSubmit = (e, email, message) => {
         e.preventDefault();
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(email)) {
+            setButtonDisabled(true)
+            setButtonText("Invalid Email provided!")
+            setTimeout(() => {
+                // Re-enable the button and change the text back to 'Submit'
+                setButtonDisabled(false);
+                setButtonText('Submit');
+            }, 3000);
+            return
+        }
+
         // Disable the button and change the text
         setButtonDisabled(true);
 
@@ -34,13 +46,15 @@ function Contact() {
 
         //Reflect in the UI that an email has been sent
         setButtonText('Email sent!')
+        setEmail("")
+        setMessage("")
 
         // Simulate a delay of 2 seconds
         setTimeout(() => {
             // Re-enable the button and change the text back to 'Submit'
             setButtonDisabled(false);
             setButtonText('Submit');
-        }, 2000);
+        }, 3000);
     };
 
     return (
@@ -53,13 +67,13 @@ function Contact() {
                 <form className="flex flex-col w-3/5 mx-auto m-8 my-20">
                     <p className="text-xl"> Your email: </p>
                     <input className="h-8 my-4 pl-2 rounded-md"
-                        content={email}
+                        value={email}
                         onChange={(e) => { setEmail(e.target.value) }}
                         placeholder='Your email here'
                     />
                     <p className="text-xl"> Your message: </p>
                     <textarea className="my-4 h-64 rounded-md pl-2 pt-1"
-                        content={message}
+                        value={message}
                         onChange={(e) => { setMessage(e.target.value) }}
                         placeholder='Your message here'
                         onKeyDown={(event) => { handleKeyDown(event) }}

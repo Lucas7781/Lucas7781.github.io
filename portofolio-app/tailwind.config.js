@@ -10,7 +10,9 @@ module.exports = {
           '100%': {visibility: 'visible'},
         },
       },
-      animation: {'blink': 'blink-animation 1s step-start infinite'}
+      animation: {
+        'blink': 'blink-animation 1s step-start infinite',
+      }
     },
   },
   plugins: [],
