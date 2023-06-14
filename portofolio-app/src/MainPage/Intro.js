@@ -10,7 +10,7 @@ function Intro() {
       <div className="bg-gradient-to-b from-blue-950 to-blue-900 min-h-screen flex flex-row justify-between">
         <div className="flex flex-col justify-around pl-5 md:pl-20">
           <img className="w-24 object-scale-down" src='image1.png' alt="logo1" />
-          <img className="w-24 object-scale-down" src='image2.png' alt="logo2" />
+          <img className="w-28 object-scale-down" src='image2.png' alt="logo2" />
           <img className="w-24 object-scale-down" src='image3.png' alt="logo3" />
         </div>
         <div className="flex flex-col justify-center">
@@ -28,7 +28,7 @@ function Intro() {
 }
 
 const NameComponent = () => {
-  const name = "Vlad Luca Sebastian Spătaru";
+  const name = "Vlad Luca Spătaru";
   const characters = name.split('');
   const characterRefs = useRef([]);
 
@@ -44,12 +44,12 @@ const NameComponent = () => {
   }, []);
 
   return (
-    <div className="text-amber-600 text-center text-xl lg:text-4xl xl:text-6xl font-bold">
+    <div className="text-amber-600 text-center text-lg md:text-4xl lg:text-7xl font-bold">
       {characters.map((character, index) => (
         <span
           key={index}
           ref={el => (characterRefs.current[index] = el)}
-          className={`inline-block ${character === ' ' ? 'ml-2' : ''}`}
+          className={`inline-block ${character === ' ' ? 'ml-2 md:ml-4' : ''}`}
         >
           {character}
         </span>
