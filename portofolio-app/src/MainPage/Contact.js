@@ -27,7 +27,7 @@ function Contact() {
 
         //Create the POST request which will be sent to the backend
         const req = new XMLHttpRequest();
-        req.open("POST", "https://backend-portofolio.adaptable.app/email");
+        req.open("POST", "https://portofolio-backend.adaptable.app/email");
         req.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 
         const body = JSON.stringify({
