@@ -1,16 +1,9 @@
-import { useEffect } from 'react';
+import { useRef } from 'react';
+import { useFocusTrap } from '../../hooks';
 
 function PortofolioModal({ onClose }) {
-  // Close on Escape; lock body scroll while open.
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    document.documentElement.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.documentElement.style.overflow = '';
-    };
-  }, [onClose]);
+  const panelRef = useRef(null);
+  useFocusTrap(panelRef, onClose);
 
   return (
     <div
@@ -21,7 +14,7 @@ function PortofolioModal({ onClose }) {
     >
       {/* overlay */}
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
-      <div className="relative w-full max-w-3xl my-6 bg-surface border border-edge rounded-xl shadow-2xl">
+      <div ref={panelRef} tabIndex={-1} className="relative w-full max-w-3xl my-6 bg-surface border border-edge rounded-xl shadow-2xl">
         <div className="flex items-center justify-between px-6 pt-5">
           <h3 className="text-2xl font-bold text-accent">Portofolio Website</h3>
           <a href="https://github.com/Lucas7781/Lucas7781.github.io" target="_blank" rel="noreferrer" aria-label="Portofolio source on GitHub">
