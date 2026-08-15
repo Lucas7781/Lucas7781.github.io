@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import { useScrollReveal } from '../hooks';
 
 const TERMINAL_LINES = [
-  "I'm Luca, a Software Engineer at TomTom, passionate about building scalable and efficient software solutions. My work focuses on backend development, automation, and optimizing critical services for electric vehicles.",
-  "Having studied Computer Science and Engineering at TU Delft, I developed a strong foundation in software engineering and problem-solving. My experience spans working with large-scale infrastructure, AI-driven tools, and high-performance systems.",
-  "I thrive on solving complex engineering challenges and continuously improving software performance and reliability. With a keen eye for innovation, I enjoy collaborating with teams to create impactful technology solutions.",
+  "I'm Luca, a Software Engineer at TomTom, specializing in back-end development, AI-driven tooling, and large-scale infrastructure. My work focuses on building and maintaining core services for electric vehicles and developing automation solutions, including LLM-based tools that streamline company-wide processes.",
+  "Having studied Computer Science and Engineering at TU Delft, I developed strong problem-solving skills and a solid technical foundation. My focus lies in delivering efficient, scalable software that powers real-world, impactful projects.",
+  "I thrive on tackling complex engineering challenges and continuously improving software performance and reliability. With a keen eye for innovation, I enjoy collaborating with teams to create impactful technology solutions.",
   "Feel free to explore my projects and reach out to discuss exciting opportunities.",
 ];
 
