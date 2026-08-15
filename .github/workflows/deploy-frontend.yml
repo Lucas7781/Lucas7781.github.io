@@ -3,7 +3,7 @@ name: Deploy frontend to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['portofolio-app/**']
+    paths: ['portofolio-app/**', '.github/workflows/**']
   workflow_dispatch:
 
 permissions:

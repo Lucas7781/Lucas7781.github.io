@@ -22,7 +22,7 @@ Run from the repo root; the packages are not hoisted, so use `--prefix` (or `cd`
 | Run backend in Docker (loopback port 8080, needs `backend/.env` for mail creds; public traffic goes through Caddy) | `docker compose up -d --build` (from `backend/`) |
 | Run both together | `npm run startlocal` |
 | Production build (outputs `portofolio-app/dist/`) | `npm run build --prefix portofolio-app` |
-| Deploy to GitHub Pages | `npm run deploy --prefix portofolio-app` (runs build, then pushes `dist/` via gh-pages) |
+| Deploy to GitHub Pages | push to `main` (workflow builds + deploys; Pages source must be "GitHub Actions") |
 | Run tests | `npm test --prefix portofolio-app` (vitest, non-watch) |
 | Run tests in watch mode | `npm run test:watch --prefix portofolio-app` |
 | Run a single test file | `npm test --prefix portofolio-app -- src/App.test.jsx` |

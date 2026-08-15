@@ -56,14 +56,20 @@ const NameComponent = () => {
   const characterRefs = useRef([]);
 
   useEffect(() => {
-    gsap.from(characterRefs.current, {
-      y: 50,
-      opacity: 0,
-      stagger: 0.05,
-      delay: 0.02,
-      duration: 0.5,
-      ease: 'power2.out'
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = gsap.context(() => {
+      gsap.from(characterRefs.current, {
+        y: 50,
+        opacity: 0,
+        stagger: 0.05,
+        delay: 0.02,
+        duration: 0.5,
+        ease: 'power2.out'
+      });
     });
+    // revert on unmount so StrictMode's double-invoked effect can't leave
+    // a second from-tween capturing the first's mid-flight opacity as its target
+    return () => ctx.revert();
   }, []);
 
   return (

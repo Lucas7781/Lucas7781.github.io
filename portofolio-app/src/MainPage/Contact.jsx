@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScrollReveal } from '../hooks';
 
 // Override with VITE_BACKEND_URL in portofolio-app/.env for local dev (e.g. http://localhost:8080)
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://portofolio-backend.selfhaven.eu";
+// Trailing slashes stripped so `${BACKEND_URL}/email` can't become `//email`.
+const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "https://portofolio-backend.selfhaven.eu").replace(/\/+$/, '');
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -14,46 +15,65 @@ function Contact() {
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [errorField, setErrorField] = useState(null); // 'email' | 'message' | null
   const [errorText, setErrorText] = useState("");
+  const timerRef = useRef(null);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const resetAfterDelay = () => {
-    setTimeout(() => {
-      setStatus('idle');
-    }, 3000);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setStatus('idle'), 3000);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!EMAIL_REGEX.test(email)) {
+      setStatus('idle');
       setErrorField('email');
       setErrorText("Please enter a valid email address.");
       return;
     }
     if (!message.trim()) {
+      setStatus('idle');
       setErrorField('message');
       setErrorText("Please write a message.");
       return;
     }
+    // Clear any stale reset timer so a previous request's timer can't
+    // re-enable the button while this request is still in flight.
+    clearTimeout(timerRef.current);
     setErrorField(null);
     setErrorText("");
     setStatus('sending');
 
+    const sentEmail = email;
+    const sentMessage = message;
+
     const req = new XMLHttpRequest();
     req.open("POST", `${BACKEND_URL}/email`);
     req.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    // Safety net: a request that neither completes nor errors must not
+    // leave the form stuck on "Sending…" forever.
+    req.timeout = 15000;
     req.send(JSON.stringify({ email, message }));
 
     req.onload = () => {
       if (req.readyState === 4 && req.status === 201) {
         setStatus('success');
-        setEmail("");
-        setMessage("");
+        // Only clear fields if the user hasn't typed new text while the
+        // request was in flight.
+        setEmail(prev => (prev === sentEmail ? '' : prev));
+        setMessage(prev => (prev === sentMessage ? '' : prev));
       } else {
         setStatus('error');
       }
       resetAfterDelay();
     };
     req.onerror = () => {
+      setStatus('error');
+      resetAfterDelay();
+    };
+    req.ontimeout = () => {
       setStatus('error');
       resetAfterDelay();
     };
@@ -95,7 +115,7 @@ function Contact() {
             type="email"
             className={inputClass(errorField === 'email')}
             value={email}
-            onChange={(e) => { setEmail(e.target.value); if (errorField === 'email') setErrorText(""); }}
+            onChange={(e) => { setEmail(e.target.value); if (errorField === 'email') { setErrorText(""); setErrorField(null); } }}
             placeholder="you@example.com"
             required
           />
@@ -107,7 +127,7 @@ function Contact() {
             id="message"
             className={`${inputClass(errorField === 'message')} min-h-40 resize-y`}
             value={message}
-            onChange={(e) => { setMessage(e.target.value); if (errorField === 'message') setErrorText(""); }}
+            onChange={(e) => { setMessage(e.target.value); if (errorField === 'message') { setErrorText(""); setErrorField(null); } }}
             placeholder="Write your message here"
             required
           />

@@ -25,7 +25,18 @@ function NavigationBar() {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     }
-    return () => observer.disconnect();
+    // A fixed band never reaches the last section on tall viewports
+    // (Contact stays below the band at max scroll) — pin it at the bottom.
+    const onScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        setActive(SECTIONS[SECTIONS.length - 1].id);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   const linkClass = (id) =>

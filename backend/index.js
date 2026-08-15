@@ -23,12 +23,12 @@ app.listen(port, () => {
 app.post('/email', async (req, res) => {
   const { email, message } = req.body
 
-  if (!email || !message) {
-    return res.status(400).send('Missing email or message')
-  }
-
   if (typeof email !== 'string' || !EMAIL_RE.test(email)) {
     return res.status(400).send('Invalid email address')
+  }
+
+  if (typeof message !== 'string' || !message.trim()) {
+    return res.status(400).send('Message cannot be empty')
   }
 
   let transporter = nodemailer.createTransport({
