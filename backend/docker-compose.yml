@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: .
+    container_name: portofolio-backend
+    restart: unless-stopped
+    ports:
+      # Loopback only by default — public traffic must go through Caddy
+      # (rate-limited, TLS); an 0.0.0.0 bind would expose the raw port and
+      # bypass that. Override the host binding with BACKEND_HOST_PORT, or
+      # drop this block entirely if you don't need host-side curl tests.
+      - "${BACKEND_HOST_PORT:-127.0.0.1:8080}:3001"
+    env_file:
+      - path: .env
+        required: false
+    networks:
+      - default
+      - caddy-net
+
+networks:
+  # Present when the Caddy stack (~/Desktop/server/caddy) is running.
+  # If you don't run that stack, remove this block (or run `docker network create caddy-net`).
+  caddy-net:
+    external: true
