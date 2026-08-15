@@ -1,4 +1,3 @@
-import '../App.css';
 import AboutMe from './AboutMe';
 import Bottom from './Bottom';
 import Contact from './Contact';
@@ -7,13 +6,13 @@ import Projects from './Projects';
 
 function MainPage() {
   return (
-    <div>  
-      <Intro/>
-      <AboutMe/>
-      <Projects/>
-      <Contact/>
-      <Bottom/>
-    </div>
+    <main>
+      <Intro />
+      <AboutMe />
+      <Projects />
+      <Contact />
+      <Bottom />
+    </main>
   );
 }
 

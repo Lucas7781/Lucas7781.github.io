@@ -1,12 +1,11 @@
 import { Route, Routes } from 'react-router';
-import './App.css';
 import NavigationBar from './NavigationBar';
 import MainPage from './MainPage/MainPage';
 
 function App() {
   return (
     <div>
-      <header className="fixed w-screen">
+      <header className="sticky top-0 z-40 bg-ink/80 backdrop-blur border-b border-edge">
         <NavigationBar />
       </header>
       <Routes>
