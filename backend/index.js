@@ -5,24 +5,32 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3001
 const cors = require('cors')
-const bodyParser = require('body-parser')
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 app.use(cors())
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  console.log("Hello World!")
+  res.send('Portofolio backend is running')
 })
 
 app.listen(port, () => {
   console.log(`Started listening on port ${port}`)
 })
 
-app.post('/email', (req, res) => {
-  let data = req.body;
-  console.log(data)
-  console.log(process.env.SENDER + "  " + process.env.PASSWORD)
+app.post('/email', async (req, res) => {
+  const { email, message } = req.body
+
+  if (typeof email !== 'string' || !EMAIL_RE.test(email)) {
+    return res.status(400).send('Invalid email address')
+  }
+
+  if (typeof message !== 'string' || !message.trim()) {
+    return res.status(400).send('Message cannot be empty')
+  }
+
   let transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
@@ -33,17 +41,16 @@ app.post('/email', (req, res) => {
   const options = {
     from: process.env.SENDER,
     to: process.env.RECIPIENT,
-    subject: `New message from the portofolio App! Sent by: ${data.email}`,
-    text: data.message,
+    subject: `New message from the portofolio App! Sent by: ${email}`,
+    text: message,
   }
 
-  transporter.sendMail(options, function (err, info) {
-    if (err) {
-      console.log(err)
-      return
-    }
+  try {
+    const info = await transporter.sendMail(options)
     console.log("Sent: " + info.response)
-  })
-  res.send('Email sent Successfuly')
-  console.log("Finished!")
+    res.status(201).send('Email sent successfully')
+  } catch (err) {
+    console.error("Failed to send email:", err)
+    res.status(500).send('Failed to send email')
+  }
 })
