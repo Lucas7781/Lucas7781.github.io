@@ -18,8 +18,8 @@ For this project the following tech-stack was used:
 ## Updating the GitHub Pages site
 
 1. Make your changes in `portofolio-app/`.
-2. Test locally: `npm run startlocal` from the repo root (frontend on :5173, backend on :8080 via Docker).
-3. Deploy: `npm run deploy --prefix portofolio-app` — this builds the app (Vite → `dist/`) and pushes `dist/` to the `gh-pages` branch. Push the source changes too (`git push origin main`); the `gh-pages` branch carries only the compiled site.
+2. Test locally: `npm run startlocal` from the repo root (frontend on :5173, backend on :3001).
+3. Push to `main` — the `Deploy frontend to GitHub Pages` workflow builds and deploys automatically. (Requires repo Settings → Pages → Source: "GitHub Actions".) Manual run: Actions tab → workflow → "Run workflow".
 
 ## Local backend (Docker)
 
@@ -29,4 +29,4 @@ cp .env.example .env   # fill in SENDER / PASSWORD / RECIPIENT (Hotmail app pass
 docker compose up -d --build   # serves on http://localhost:8080
 ```
 
-To point the frontend at the local backend instead of the public one, create `portofolio-app/.env` with `VITE_BACKEND_URL=http://localhost:8080` and restart the frontend.
+To point the frontend at the local backend instead of the public one, create `portofolio-app/.env` with `VITE_BACKEND_URL=http://localhost:3001` and restart the frontend (Docker backend on 8080: `http://localhost:8080`).
