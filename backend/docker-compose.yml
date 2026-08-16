@@ -1,8 +1,12 @@
 services:
   backend:
     build: .
+    image: ghcr.io/lucas7781/lucas7781.github.io:latest
     container_name: portofolio-backend
     restart: unless-stopped
+    labels:
+      # Opt in to webhook-triggered updates via ~/Desktop/server/registry-updater
+      - com.centurylinklabs.watchtower.enable=true
     ports:
       # Loopback only by default — public traffic must go through Caddy
       # (rate-limited, TLS); an 0.0.0.0 bind would expose the raw port and
